@@ -378,14 +378,14 @@ The one structural exception is an address's site membership. `PUT addresses` ta
 
 This work is licensed under the [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/legalcode).
 
-- SPDX-License-Identifier: CC-BY-4.0
-- SPDX-FileCopyrightText: 2023-2026 ZF Friedrichshafen AG
-- SPDX-FileCopyrightText: 2023-2026 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)
-- SPDX-FileCopyrightText: 2023-2026 SAP SE
-- SPDX-FileCopyrightText: 2023-2026 Volkswagen AG
-- SPDX-FileCopyrightText: 2023-2026 Robert Bosch GmbH
-- SPDX-FileCopyrightText: 2023-2026 Mercedes Benz Group
-- SPDX-FileCopyrightText: 2023-2026 BASF SE
-- SPDX-FileCopyrightText: 2023-2026 Schaeffler AG
-- SPDX-FileCopyrightText: 2023-2026 Contributors to the Eclipse Foundation
-- Source URL: [https://github.com/eclipse-tractusx/bpdm](https://github.com/eclipse-tractusx/bpdm)
+* SPDX-License-Identifier: CC-BY-4.0
+* SPDX-FileCopyrightText: 2023-2026 ZF Friedrichshafen AG
+* SPDX-FileCopyrightText: 2023-2026 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)
+* SPDX-FileCopyrightText: 2023-2026 SAP SE
+* SPDX-FileCopyrightText: 2023-2026 Volkswagen AG
+* SPDX-FileCopyrightText: 2023-2026 Robert Bosch GmbH
+* SPDX-FileCopyrightText: 2023-2026 Mercedes Benz Group
+* SPDX-FileCopyrightText: 2023-2026 BASF SE
+* SPDX-FileCopyrightText: 2023-2026 Schaeffler AG
+* SPDX-FileCopyrightText: 2023-2026 Contributors to the Eclipse Foundation
+* Source URL: [https://github.com/eclipse-tractusx/bpdm](https://github.com/eclipse-tractusx/bpdm)

@@ -137,36 +137,29 @@ The following figure depicts the business context setup for BPDM:
 
 The following are the various components of the business context setup:
 
-**Master Data Management (Catena-X Member)**
+- **Master Data Management (Catena-X Member)**
+  - A backend system that's operated by a company which is participating in the Catena-X Ecosystem and consuming digital services or data assets.
 
-- A backend system that's operated by a company which is participating in the Catena-X Ecosystem and consuming digital services or data assets.
+- **Small-Medium-Enterprises (SME) (Catena-X Member)**
+  - A SME company that's participating in the Catena-X Ecosystem and consuming digital services or data assets.
+  - An SME does not need a master data management system to share data: the Gate accepts a CSV file over its partner upload endpoints and offers a template for it.
 
-**Small-Medium-Enterprises (SME) (Catena-X Member)**
+- **Catena-X Portal/Marketplace (CX Portal)**
+  - The Portal which provides an entry point for the Catena-X Members, to discover Apps that are offered in Catena-X.
 
-- A SME company that's participating in the Catena-X Ecosystem and consuming digital services or data assets.
-- An SME does not need a master data management system to share data: the Gate accepts a CSV file over its partner upload endpoints and offers a template for it.
+- **Value Added Services**
+  - Value Added Services can be provided be either the Operator itself or by an external App/Service Provider. The Value Added Services provide data or service offers based on Catena-X Network data.
+  - There are several value added services that can be offered in context of business partner data. For example a Fraud Prevention Dashboard/API, Country Risk Scoring and so on.
 
-**Catena-X Portal/Marketplace (CX Portal)**
+- **Catena-X Operative Environment for BPDM**
+  - Within Catena-X there will be only one central operation environment that operates the BPDM Application. This operative environment provides the services and data for other operation environment or applications which needs to consume business partner data or golden record data.
 
-- The Portal which provides an entry point for the Catena-X Members, to discover Apps that are offered in Catena-X.
+- **Catena-X BPDM Application**
+  - The BPDM Application which offers services to Catena-X Members, Catena-X Use Cases and Catena-X BPDM Value Added Services for consuming and processing business partner data as well as Golden Record Information and BPN Numbers.
 
-**Value Added Services**
-
-- Value Added Services can be provided be either the Operator itself or by an external App/Service Provider. The Value Added Services provide data or service offers based on Catena-X Network data.
-- There are several value added services that can be offered in context of business partner data. For example a Fraud Prevention Dashboard/API, Country Risk Scoring and so on.
-
-**Catena-X Operative Environment for BPDM**
-
-- Within Catena-X there will be only one central operation environment that operates the BPDM Application. This operative environment provides the services and data for other operation environment or applications which needs to consume business partner data or golden record data.
-
-**Catena-X BPDM Application**
-
-- The BPDM Application which offers services to Catena-X Members, Catena-X Use Cases and Catena-X BPDM Value Added Services for consuming and processing business partner data as well as Golden Record Information and BPN Numbers.
-
-**Curation & Enrichment Services**
-
-- To offer the BPDM and Golden Record Services, Catena-X uses services from external third party service providers. These can either be operated by the operator itself or external companies that have a contract with the operator.
-- The API documentation calls this role a refinement service provider, or golden record processing service provider; see the [Refinement Service Provider Guide](https://github.com/eclipse-tractusx/bpdm/blob/main/docs/api/refinement-service-guide.md).
+- **Curation & Enrichment Services**
+  - To offer the BPDM and Golden Record Services, Catena-X uses services from external third party service providers. These can either be operated by the operator itself or external companies that have a contract with the operator.
+  - The API documentation calls this role a refinement service provider, or golden record processing service provider; see the [Refinement Service Provider Guide](https://github.com/eclipse-tractusx/bpdm/blob/main/docs/api/refinement-service-guide.md).
 
 ### Technical Context
 
@@ -190,30 +183,26 @@ The following high level view gives a basic overview about the BPDM Components:
 
 ![cx_bpdm_highlevel](@site/static/img/cx_bpdm_highlevel.drawio.svg)
 
-**BPDM Gate**
+- **BPDM Gate**
+  - The BPDM Gate provides the interfaces for Catena-X Members to manage their business partner data within Catena-X.
+  - Based on the network data a Golden Record Proposal is created.
+  - The BPDM Gate has its own persistence layer in which the business partner data of the Catena-X Members are stored.
+  - A Gate serves several sharing members at once: every business partner record, sharing state, relation and changelog entry carries the BPNL of the tenant it belongs to, and the Gate resolves that tenant from the token of the caller. A sharing member only ever sees its own data through the API.
+  - An operator may still deploy a Gate per sharing member, for instance to separate the databases; this is a deployment choice, not a requirement of the implementation. It replaces the original one-Gate-per-member decision, which was overturned as infeasible for thousands of tenants (see [Architecture Decisions](#architecture-decisions)).
 
-- The BPDM Gate provides the interfaces for Catena-X Members to manage their business partner data within Catena-X.
-- Based on the network data a Golden Record Proposal is created.
-- The BPDM Gate has its own persistence layer in which the business partner data of the Catena-X Members are stored.
-- A Gate serves several sharing members at once: every business partner record, sharing state, relation and changelog entry carries the BPNL of the tenant it belongs to, and the Gate resolves that tenant from the token of the caller. A sharing member only ever sees its own data through the API.
-- An operator may still deploy a Gate per sharing member, for instance to separate the databases; this is a deployment choice, not a requirement of the implementation. It replaces the original one-Gate-per-member decision, which was overturned as infeasible for thousands of tenants (see [Architecture Decisions](#architecture-decisions)).
+- **BPDM Pool**
+  - The BPDM Pool is the central instance for business partner data within Catena-X.
+  - The BPDM Pool provides the interface and persistance for accessing Golden Record Data and the unique Business Partner Number.
+  - In comparison to the BPDM Gate, there is only one central instance of the BPDM Pool.
 
-**BPDM Pool**
+- **BPN Issuer**
+  - Every participant in the Catena-X network shall have a unique Business Partner Number (BPN) according to the concept defined by the Catena-X BPN concept. The task of the BPN Generator is to issue such a BPN for a presented Business Partner data object. In that, the BPN Generator serves as the central issuing authority for BPNs within Catena-X.
+  - Technically, it constitutes a service that is available as a singleton within the network.
+  - Issuing BPNs is part of the BPDM Pool implementation and has remained there: the Pool creates a BPN whenever the golden record process presents business partner data that does not resolve to an existing golden record. There is no separate BPN issuer component.
 
-- The BPDM Pool is the central instance for business partner data within Catena-X.
-- The BPDM Pool provides the interface and persistance for accessing Golden Record Data and the unique Business Partner Number.
-- In comparison to the BPDM Gate, there is only one central instance of the BPDM Pool.
-
-**BPN Issuer**
-
-- Every participant in the Catena-X network shall have a unique Business Partner Number (BPN) according to the concept defined by the Catena-X BPN concept. The task of the BPN Generator is to issue such a BPN for a presented Business Partner data object. In that, the BPN Generator serves as the central issuing authority for BPNs within Catena-X.
-- Technically, it constitutes a service that is available as a singleton within the network.
-- Issuing BPNs is part of the BPDM Pool implementation and has remained there: the Pool creates a BPN whenever the golden record process presents business partner data that does not resolve to an existing golden record. There is no separate BPN issuer component.
-
-**BPDM Orchestrator**
-
-- The BPDM Orchestrator is a passive component that offers standardized APIs for the BPDM Gate, BPDM Pool and refinement services to orchestrate the process of Golden Record Creation and handling the different states a business partner record can have during this process.
-- It holds the golden record tasks, hands them to whichever service has reserved the step they are queued in, and keeps the submitting sharing member anonymous towards those services.
+- **BPDM Orchestrator**
+  - The BPDM Orchestrator is a passive component that offers standardized APIs for the BPDM Gate, BPDM Pool and refinement services to orchestrate the process of Golden Record Creation and handling the different states a business partner record can have during this process.
+  - It holds the golden record tasks, hands them to whichever service has reserved the step they are queued in, and keeps the submitting sharing member anonymous towards those services.
 
 ## Building Block View
 
@@ -244,33 +233,28 @@ flowchart TB
     participant -->|"resolves BPNs to<br>golden records"| pool
 ```
 
-**BPDM Gate**
+- **BPDM Gate**
+  - Holds the business partner data of the sharing members in an input and an output stage, together with a sharing state and a changelog per stage.
+  - Serves several sharing members at once; each record carries the BPNL of its tenant.
+  - Accepts data as JSON over the business partner endpoints and as a CSV file over the partner upload endpoints.
+  - Drives the process from the sharing member's side: it creates golden record tasks in the Orchestrator, picks up finished ones and writes the result into the output stage.
 
-- Holds the business partner data of the sharing members in an input and an output stage, together with a sharing state and a changelog per stage.
-- Serves several sharing members at once; each record carries the BPNL of its tenant.
-- Accepts data as JSON over the business partner endpoints and as a CSV file over the partner upload endpoints.
-- Drives the process from the sharing member's side: it creates golden record tasks in the Orchestrator, picks up finished ones and writes the result into the output stage.
+- **BPDM Pool**
+  - The single source of truth for golden records, and the issuing authority for BPNs.
+  - Participates in the golden record process as the service that reserves the `PoolSync` step: it writes the refined data into the golden records and reports the resulting BPNs back into the task.
+  - Serves golden record and metadata reads to dataspace participants and value added services, and a changelog the Gate polls for golden record changes.
 
-**BPDM Pool**
+- **BPDM Orchestrator**
+  - Passive component. It stores golden record tasks and their step states and hands a task to whichever service reserved the step the task is queued in; it never calls a service itself.
+  - Keeps the sharing member anonymous towards the refinement services: a task carries the business partner data, not the identity of the Gate that created it.
+  - Holds two kinds of tasks - business partner tasks and relation tasks - plus the sharing member records, which state how many sharing members share a given golden record.
 
-- The single source of truth for golden records, and the issuing authority for BPNs.
-- Participates in the golden record process as the service that reserves the `PoolSync` step: it writes the refined data into the golden records and reports the resulting BPNs back into the task.
-- Serves golden record and metadata reads to dataspace participants and value added services, and a changelog the Gate polls for golden record changes.
+- **Cleaning Service Dummy**
+  - A reference refinement service, so that the stack can run a golden record process end to end without an external provider under contract.
+  - Reserves the step it is configured for (`CleanAndSync` by default) and applies rudimentary processing; it does not clean or correct data. Its restrictions are listed in [Risks and Technical Debts](#technical-debts).
 
-**BPDM Orchestrator**
-
-- Passive component. It stores golden record tasks and their step states and hands a task to whichever service reserved the step the task is queued in; it never calls a service itself.
-- Keeps the sharing member anonymous towards the refinement services: a task carries the business partner data, not the identity of the Gate that created it.
-- Holds two kinds of tasks - business partner tasks and relation tasks - plus the sharing member records, which state how many sharing members share a given golden record.
-
-**Cleaning Service Dummy**
-
-- A reference refinement service, so that the stack can run a golden record process end to end without an external provider under contract.
-- Reserves the step it is configured for (`CleanAndSync` by default) and applies rudimentary processing; it does not clean or correct data. Its restrictions are listed in [Risks and Technical Debts](#technical-debts).
-
-**EDC Operator**
-
-- Communication between the operating environment and another legal entity goes through an EDC. Diagrams may show an EDC several times for readability; on a technical level one EDC instance serves all BPDM assets of the operator. Which communication needs an EDC is decided in [Architecture Decisions](#recommended-usage-scenarios-of-an-edc-enabled-communication-in-business-partner-data-management-solution).
+- **EDC Operator**
+  - Communication between the operating environment and another legal entity goes through an EDC. Diagrams may show an EDC several times for readability; on a technical level one EDC instance serves all BPDM assets of the operator. Which communication needs an EDC is decided in [Architecture Decisions](#recommended-usage-scenarios-of-an-edc-enabled-communication-in-business-partner-data-management-solution).
 
 ### Level 2: The Modules
 
@@ -982,11 +966,11 @@ An example postman collection for Asset definition you can find [here](https://g
 
 #### Verified Credentials
 
-**Gate**
+##### Gate
 
 To enable communication for uploading and downloading from the gate through EDC, it's essential to have a Verifiable Credential stored in the wallet for BPDM Framework Agreement. This credential will be verified during EDC communication. Additionally, the BPN-Verifiable Credential needs to be validated to ensure that only the sharing member has access to its own gate.
 
-**Pool**
+##### Pool
 
 To enable communication for downloading from the pool through EDC, it's essential to have a Verifiable Credential stored in the wallet for BPDM Framework Agreement. This credential will be verified during EDC communication. Additionally, the Membership Credential needs to be validated to ensure that only onboarded catena-x members have access to the pool.
 
@@ -1408,22 +1392,19 @@ In this scenario the operating environment itself operates a backend service or 
 
 ### Risks
 
-**Dependency on third party service provider**
+- **Dependency on third party service provider**
+  - Originally the golden record creation could not be changed to a different third party service provider without effort.
+  - ✔️ Solved: the BPDM Orchestrator holds the golden record tasks and their data, and a refinement service integrates by reserving a step over a standardized API. The Cleaning Service Dummy is such a service and lets the stack run without any provider under contract.
 
-- Originally the golden record creation could not be changed to a different third party service provider without effort.
-- ✔️ Solved: the BPDM Orchestrator holds the golden record tasks and their data, and a refinement service integrates by reserving a step over a standardized API. The Cleaning Service Dummy is such a service and lets the stack run without any provider under contract.
+- **Data Storage and anonymize concept**
+  - How to anonymize the relations between CX-Member and its belonging Business Partner?
+  - 💡 Idea: using kind of "ticket numbering"
+  - ✔️ Solved via the golden record tasks in the Orchestrator: a task carries business partner data, not the identity of the Gate that created it.
 
-**Data Storage and anonymize concept**
-
-- How to anonymize the relations between CX-Member and its belonging Business Partner?
-- 💡 Idea: using kind of "ticket numbering"
-- ✔️ Solved via the golden record tasks in the Orchestrator: a task carries business partner data, not the identity of the Gate that created it.
-
-**Accessability for SMEs**
-
-- An SME has no master data management system to share data from.
-- ✔️ Solved for the upload itself: the Gate accepts a CSV file over its partner upload endpoints and offers a template for it.
-- ⚠️ Reaching the Gate across legal entities still requires an EDC, so an SME needs one - either its own or one offered as a service.
+- **Accessability for SMEs**
+  - An SME has no master data management system to share data from.
+  - ✔️ Solved for the upload itself: the Gate accepts a CSV file over its partner upload endpoints and offers a template for it.
+  - ⚠️ Reaching the Gate across legal entities still requires an EDC, so an SME needs one - either its own or one offered as a service.
 
 ### Technical Debts
 
