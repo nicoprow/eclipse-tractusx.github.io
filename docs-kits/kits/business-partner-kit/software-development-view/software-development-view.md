@@ -71,3 +71,19 @@ Two Postman collections document both sides of that setup:
 
 - [EDC BPDM Consumer](https://github.com/eclipse-tractusx/bpdm/blob/main/docs/api/EDC%20BPDM%20Consumer.postman_collection.json) - negotiating for an offer and calling the APIs with the transfer token, described in [Access BPDM over EDC](https://github.com/eclipse-tractusx/bpdm/blob/main/docs/api/README.md#access-bpdm-over-edc).
 - [EDC Provider Setup](https://github.com/eclipse-tractusx/bpdm/blob/main/docs/admin/EDC%20Provider%20Setup.postman_collection.json) - defining the BPDM assets, policies and contract definitions on the provider side.
+
+## NOTICE
+
+This work is licensed under the [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/legalcode).
+
+- SPDX-License-Identifier: CC-BY-4.0
+- SPDX-FileCopyrightText: 2023-2026 ZF Friedrichshafen AG
+- SPDX-FileCopyrightText: 2023-2026 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)
+- SPDX-FileCopyrightText: 2023-2026 SAP SE
+- SPDX-FileCopyrightText: 2023-2026 Volkswagen AG
+- SPDX-FileCopyrightText: 2023-2026 Robert Bosch GmbH
+- SPDX-FileCopyrightText: 2023-2026 Mercedes Benz Group
+- SPDX-FileCopyrightText: 2023-2026 BASF SE
+- SPDX-FileCopyrightText: 2023-2026 Schaeffler AG
+- SPDX-FileCopyrightText: 2023-2026 Contributors to the Eclipse Foundation
+- Source URL: [https://github.com/eclipse-tractusx/bpdm](https://github.com/eclipse-tractusx/bpdm)

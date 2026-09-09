@@ -27,6 +27,7 @@ Compatible for **release 26.09**.
 - Use cases: starting the Gates of the second and third sharing member, and obtaining an access token for the Gate API.
 - Operation view: the operator actions required before upgrading to BPDM 7.5.0, the bundled `helm test` smoke test and the Keycloak admin console.
 - Operation view: the optional `bpnSites` on `PUT addresses`.
+- CC BY 4.0 notice on the development view, use cases and operation view pages.
 
 ### Changed
 
