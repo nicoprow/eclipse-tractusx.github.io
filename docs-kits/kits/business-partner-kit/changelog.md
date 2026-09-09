@@ -11,6 +11,40 @@ sidebar_position: 1
 
 All notable changes to this KIT will be documented in this file.
 
+## [12.0.0] - 2026-09-08
+
+Compatible for **release 26.09**.
+
+### Added
+
+- Adoption view: what a golden record carries beyond a single business partner - relations, ultimate owner, confidence criteria and script variants.
+- Adoption view: CSV upload as an alternative to a master data management system, and the standards of the value-added services.
+- Architecture view: a Building Block View with the four deployed services and the repository's modules.
+- Architecture view: runtime views for sharing a relation, for counting the sharing members of a golden record and for picking up finished tasks.
+- Architecture view: a "Dummy Golden Record Process Restrictions" chapter.
+- Architecture view: the architecture decision "Realize multi-tenancy within one Gate deployment".
+- Development view: the four BPDM services, the role-scoped Open-API documents, the integration guides per role and access over EDC.
+- Use cases: starting the Gates of the second and third sharing member, and obtaining an access token for the Gate API.
+- Operation view: the operator actions required before upgrading to BPDM 7.5.0, the bundled `helm test` smoke test and the Keycloak admin console.
+- Operation view: the optional `bpnSites` on `PUT addresses`.
+
+### Changed
+
+- Aligned the KIT with BPDM application 7.5.0 and BPDM Helm Charts 7.1.0.
+- API Hub links for Gate, Pool and Orchestrator point to 7.5.0, which requires the 7.5.0 specifications to be published there.
+- Regenerated the architecture view from the BPDM repository: corrected deployment view, v7 API paths in all runtime views, complete permission tables, Pool permission group "Cx Member" renamed to "Dataspace Participant", and the actual logging levels.
+- Architecture view: the Gate serves several sharing members at once and resolves the tenant from the caller's token.
+- Adoption view: an address can belong to several sites.
+- Development view: rewrote the specification page.
+- Use cases: the end-to-end suite is built and run as an executable JAR, and the changelog examples use v7 endpoints.
+- Operation view: prerequisite tool versions, supported external Keycloak version, workload names and port forwarding.
+- Operation view: the note on the breaking BPDM Helm Charts 7.0.0 changes now applies to deployments older than BPDM 7.4.0.
+
+### Removed
+
+- Architecture view: the technical debts that no longer apply, and the Simulator Service.
+- Development view: the Postman collections of Gate, Pool, Orchestrator, Cleaning Service Dummy and Bridge Dummy, replaced by the role-scoped Open-API documents, which Postman imports into a collection scoped to one permission group.
+
 ## [11.0.0] - 2026-06-11
 
 Compatible for **release 26.06**.
