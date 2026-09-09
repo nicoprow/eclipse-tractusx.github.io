@@ -27,7 +27,7 @@ Compatible for **release 26.09**.
 - Use cases: starting the Gates of the second and third sharing member, and obtaining an access token for the Gate API.
 - Operation view: the bundled `helm test` smoke test and the Keycloak admin console.
 - Operation view: the optional `bpnSites` on `PUT addresses`.
-- CC BY 4.0 notice on the development view, use cases and operation view pages.
+- CC BY 4.0 notice on the changelog, development view, use cases and operation view pages.
 
 ### Changed
 
@@ -247,3 +247,19 @@ Compatible for **release 24.12**.
 ### Removed
 
 - ./.
+
+## NOTICE
+
+This work is licensed under the [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/legalcode).
+
+- SPDX-License-Identifier: CC-BY-4.0
+- SPDX-FileCopyrightText: 2023-2026 ZF Friedrichshafen AG
+- SPDX-FileCopyrightText: 2023-2026 Bayerische Motoren Werke Aktiengesellschaft (BMW AG)
+- SPDX-FileCopyrightText: 2023-2026 SAP SE
+- SPDX-FileCopyrightText: 2023-2026 Volkswagen AG
+- SPDX-FileCopyrightText: 2023-2026 Robert Bosch GmbH
+- SPDX-FileCopyrightText: 2023-2026 Mercedes Benz Group
+- SPDX-FileCopyrightText: 2023-2026 BASF SE
+- SPDX-FileCopyrightText: 2023-2026 Schaeffler AG
+- SPDX-FileCopyrightText: 2023-2026 Contributors to the Eclipse Foundation
+- Source URL: [https://github.com/eclipse-tractusx/bpdm](https://github.com/eclipse-tractusx/bpdm)
