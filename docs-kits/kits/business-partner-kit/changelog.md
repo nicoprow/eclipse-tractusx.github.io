@@ -25,7 +25,7 @@ Compatible for **release 26.09**.
 - Architecture view: the architecture decision "Realize multi-tenancy within one Gate deployment".
 - Development view: the four BPDM services, the role-scoped Open-API documents, the integration guides per role and access over EDC.
 - Use cases: starting the Gates of the second and third sharing member, and obtaining an access token for the Gate API.
-- Operation view: the operator actions required before upgrading to BPDM 7.5.0, the bundled `helm test` smoke test and the Keycloak admin console.
+- Operation view: the bundled `helm test` smoke test and the Keycloak admin console.
 - Operation view: the optional `bpnSites` on `PUT addresses`.
 - CC BY 4.0 notice on the development view, use cases and operation view pages.
 
@@ -38,8 +38,7 @@ Compatible for **release 26.09**.
 - Adoption view: an address can belong to several sites.
 - Development view: rewrote the specification page.
 - Use cases: the end-to-end suite is built and run as an executable JAR, and the changelog examples use v7 endpoints.
-- Operation view: prerequisite tool versions, supported external Keycloak version, workload names and port forwarding.
-- Operation view: the note on the breaking BPDM Helm Charts 7.0.0 changes now applies to deployments older than BPDM 7.4.0.
+- Operation view: prerequisite tool versions, supported external Keycloak version, workload names, port forwarding, and the notes on upgrading an existing deployment and on the bundled dependencies.
 
 ### Removed
 

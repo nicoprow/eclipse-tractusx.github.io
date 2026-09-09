@@ -15,21 +15,20 @@ It is a Spring Boot Kotlin project managed by Maven, consisting of four microser
 This section installs them on a Kubernetes cluster with the Helm Charts - the quickest way to a running system.
 A deployment without Helm, including the `no-auth` profile for a setup without security, is described in [INSTALL.md](https://github.com/eclipse-tractusx/bpdm/blob/main/INSTALL.md#local-installation).
 
-:::danger Required actions before upgrading to BPDM 7.5.0
+:::caution Upgrading an existing deployment
 
-Three changes in BPDM application `7.5.0` need operator action; two of them can fail the deployment or delete data.
-Work through the [BPDM Migration Guide](https://github.com/eclipse-tractusx/bpdm/blob/main/docs/admin/MIGRATION_GUIDE.md#74x-to-75x) before upgrading.
+Most BPDM releases need operator action before the upgrade: data to remediate first, migrations that delete data or fail the deployment when the data does not fit, and changed configuration or infrastructure requirements.
 
-1. **Unique site names per legal entity.** Make site names unique per legal entity first. The new constraint `uc_sites_legal_entity_name` on the Pool's `sites` table does not resolve pre-existing duplicates - the migration fails on them and the deployment will not start.
-2. **Script variant validation.** Export what you need to keep: one migration drops nine columns from `address_script_variants`, another deletes script variants that lack the mandatory content of the invariant data they mirror.
-3. **Alternative headquarter relation directionality.** Re-create every `IsAlternativeHeadquarterFor` relation with source = alternative and target = main, and move any `IsOwnedBy` participation or `ownershipUltimate` flag from the alternative entity to the main one - in the Pool **and** in the Gate output database. After the upgrade the Pool rejects anything that violates these rules.
+The [BPDM Migration Guide](https://github.com/eclipse-tractusx/bpdm/blob/main/docs/admin/MIGRATION_GUIDE.md) states them per version step.
+Work through every step between your deployed version and the target version before upgrading.
 
 :::
 
-:::caution Breaking changes in BPDM Helm Charts 7.0.0
+:::caution Bundled dependencies
 
-Coming from a deployment older than BPDM application `7.4.0`: BPDM Helm Charts `7.0.0` upgraded the embedded Postgres from `15` to `18` and the embedded Keycloak from `25` to `26`, both switching vendor from Bitnami to Cloudpirates, which also changed the Helm values structure (see the examples below).
-The bundled Postgres and Keycloak are for test and development only. For production, host external instances and connect BPDM to them (see [Use External Dependencies](#use-external-dependencies)).
+The bundled Postgres and Keycloak are for test and development only.
+For production, host external instances and connect BPDM to them (see [Use External Dependencies](#use-external-dependencies)).
+
 :::
 
 | Step                                                                             | Action                              | Description                                                             |
@@ -96,7 +95,7 @@ Workload names are prefixed with the release name, so a release installed as `bp
 | `bpdm-bpdm-keycloak`               | StatefulSet | Bundled identity provider _(test/dev only)_ |
 | `bpdm-postgres`                    | StatefulSet | The bundled Keycloak's own database _(test/dev only)_ |
 
-Two Postgres workloads appear because since charts `7.0.0` the bundled Keycloak runs a database of its own (`keycloak.postgres.enabled`).
+Two Postgres workloads appear because the bundled Keycloak runs a database of its own (`keycloak.postgres.enabled`).
 
 #### 1.1 Get the status of the deployment
 
